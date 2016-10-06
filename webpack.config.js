@@ -27,16 +27,17 @@ const CommonConfig = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: ['babel'],
-        include: path.join(__dirname, 'src')
+        include: path.join(__dirname, 'src'),
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style', 'css', 'sass'],
+        include: path.join(__dirname, 'src', 'styles'),
       },
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: 'eval',
   devServer: {
@@ -44,10 +45,11 @@ const CommonConfig = {
     historyApiFallback: true,
     inline: true,
     port: 3000,
-    hot: true
+    hot: true,
+    stats: 'errors-only',
   },
   eslint: {
-    configFile: './.eslintrc'
+    configFile: './.eslintrc',
   },
 };
 
