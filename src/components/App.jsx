@@ -8,30 +8,16 @@ import '../styles/index.scss';
 
 const muiTheme = getMuiTheme({});
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: '' };
-
-    this.showError.bind(this);
-  }
-
-  showError(s) { this.setState({ error: s }); }
-
-  render() {
-    return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-          <AppBar
-            title="Githot"
-            showMenuIconButton={false}
-          />
-          { this.state.error ? <h3>{ this.state.error }</h3> : null }
-          <Github showError={this.showError} />
-        </div>
-      </MuiThemeProvider>
-    );
-  }
-}
+const App = () => (
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <div>
+      <AppBar
+        title="Githot"
+        showMenuIconButton={false}
+      />
+      <Github />
+    </div>
+  </MuiThemeProvider>
+);
 
 export default App;
