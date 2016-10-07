@@ -1,5 +1,5 @@
 import Task from 'data.task';
-import { compose, map, prop, pick, over, lensProp } from 'ramda';
+import { compose, map, prop, pick, over, lensProp, head, keys } from 'ramda';
 
 // PURE LIBS
 
@@ -22,6 +22,9 @@ const makeItems = compose(
   map(compose(ownerFilter, pick(['name', 'owner', 'description', 'created_at', 'stargazers_count']))), prop('items')
 );
 
+// getItemProperties :: [Item] => [ItemProperties]
+const getItemProperties = compose(keys, head);
+
 const ghTrendSearch = compose(map(makeItems), getRequest, makeUrl);
 
-export { log, ghTrendSearch };
+export { log, ghTrendSearch, getItemProperties };

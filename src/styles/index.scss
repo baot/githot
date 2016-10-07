@@ -18,6 +18,10 @@ h2 {
   color: $theme-color;
 }
 
+table td {
+  white-space: normal!important;
+}
+
 .error {
   color: $error;
   font-family: $regular-font;
