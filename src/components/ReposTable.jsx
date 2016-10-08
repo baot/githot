@@ -1,26 +1,43 @@
 import React from 'react';
-import { values, map, compose } from 'ramda';
+import { values, compose } from 'ramda';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import { getItemProperties } from '../lib';
 
-const HeaderCol = ({ text }) => (<TableHeaderColumn className="flexItem">{text}</TableHeaderColumn>);
+const HeaderCol = ({ text }) => (<TableHeaderColumn>{text}</TableHeaderColumn>);
+HeaderCol.propTypes = { text: React.PropTypes.string };
 
-const RowCol = ({ text }) => (<TableRowColumn className="flexItem">{text}</TableRowColumn>);
+const RowCol = ({ text }) => (<TableRowColumn>{text}</TableRowColumn>);
+RowCol.propTypes = {
+  text: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+  ]),
+};
 
-const BodyRow = ({ repo }) => (
-  <TableRow className="flexContainer">{repo.map(v => <RowCol text={v} />)}</TableRow>
+const BodyRow = ({ repoVals }) => (
+  <TableRow key={repoVals[name]}>
+    {repoVals.map(v => <RowCol key={v} text={v} />)}
+  </TableRow>
 );
+BodyRow.propTypes = {
+  repoVals: React.PropTypes.arrayOf(
+    React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ])
+  ),
+};
 
 const ReposTable = ({ repos }) => (
   <Table>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-      <TableRow className="flexContainer">
-        {getItemProperties(repos).map(k => <HeaderCol text={k} />)}
+      <TableRow>
+        {getItemProperties(repos).map(k => <HeaderCol key={k} text={k} />)}
       </TableRow>
     </TableHeader>
     <TableBody>
-      {repos.map(compose(arr => (<BodyRow repo={arr} />), values))}
+      {repos.map(compose(repo => (<BodyRow key={repo[0]} repoVals={repo} />), values))}
     </TableBody>
   </Table>
 );

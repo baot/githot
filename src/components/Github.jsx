@@ -16,7 +16,9 @@ class Github extends React.Component {
     this.updateRepos = this.updateRepos.bind(this);
   }
 
-  onSearch({ currentTarget }) { this.setState({ searchTerm: currentTarget.value, error: '' }); }
+  onSearch({ currentTarget }) {
+    this.setState({ searchTerm: currentTarget.value, error: '', repos: [] });
+  }
 
   showError(s) { this.setState({ error: s }); }
 
