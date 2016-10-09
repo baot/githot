@@ -1,33 +1,10 @@
 import React from 'react';
 import { values, compose } from 'ramda';
-import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import { Table, TableHeader, TableBody, TableRow } from 'material-ui/Table';
 
+import ReposTableRow from './ReposTableRow';
+import { HeaderCol } from './TableCol';
 import { getItemProperties } from '../lib';
-
-const HeaderCol = ({ text }) => (<TableHeaderColumn>{text}</TableHeaderColumn>);
-HeaderCol.propTypes = { text: React.PropTypes.string };
-
-const RowCol = ({ text }) => (<TableRowColumn>{text}</TableRowColumn>);
-RowCol.propTypes = {
-  text: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-  ]),
-};
-
-const BodyRow = ({ repoVals }) => (
-  <TableRow key={repoVals[name]}>
-    {repoVals.map(v => <RowCol key={v} text={v} />)}
-  </TableRow>
-);
-BodyRow.propTypes = {
-  repoVals: React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-    ])
-  ),
-};
 
 const ReposTable = ({ repos }) => (
   <Table>
@@ -37,7 +14,7 @@ const ReposTable = ({ repos }) => (
       </TableRow>
     </TableHeader>
     <TableBody>
-      {repos.map(compose(repo => (<BodyRow key={repo[0]} repoVals={repo} />), values))}
+      {repos.map(compose(repo => (<ReposTableRow key={repo[0]} repoVals={repo} />), values))}
     </TableBody>
   </Table>
 );
