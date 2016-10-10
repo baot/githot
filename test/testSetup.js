@@ -1,5 +1,6 @@
 // transpile ES6 to ES5 before tests run.
 require('babel-register')();
+require('isomorphic-fetch');
 
 // Configure JSDOM and set global variables
 // to simulate a browser environment for tests.
