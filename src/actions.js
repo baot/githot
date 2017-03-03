@@ -3,6 +3,7 @@ import { ghTrendSearch } from './lib';
 export const REQUEST_HOT_GHREPOS = 'REQUEST_HOT_GHREPOS';
 export const RECEIVE_HOT_GHREPOS = 'RECEIVE_HOT_GHREPOS';
 export const ERROR_RECEIVE_HOT_GHREPOS = 'ERROR_RECEIVE_HOT_GHREPOS';
+export const RESET_HOT_GHREPOS = 'RESET_HOT_GHREPOS';
 
 function requestHotGhRepos(language) {
   return {
@@ -18,10 +19,16 @@ function receiveHotGhRepos(repos) {
   };
 }
 
-function receiveErrorHotGhRepos(errors) {
+function receiveErrorHotGhRepos(error) {
   return {
     type: ERROR_RECEIVE_HOT_GHREPOS,
-    errors,
+    error,
+  };
+}
+
+export function resetHotGhRepos(repos) {
+  return {
+    type: RESET_HOT_GHREPOS,
   };
 }
 

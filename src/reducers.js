@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
 import { REQUEST_HOT_GHREPOS, RECEIVE_HOT_GHREPOS,
-    ERROR_RECEIVE_HOT_GHREPOS } from './actions';
+    ERROR_RECEIVE_HOT_GHREPOS, RESET_HOT_GHREPOS } from './actions';
 
 function hotGhRepos(state = {
   isFetching: false,
   repos: [],
-  errors: null,
+  error: null,
 }, action) {
   switch (action.type) {
     case REQUEST_HOT_GHREPOS:
@@ -20,7 +20,13 @@ function hotGhRepos(state = {
       });
     case ERROR_RECEIVE_HOT_GHREPOS:
       return Object.assign({}, state, {
-        errors: action.errors,
+        isFetching: false,
+        error: action.error,
+      });
+    case RESET_HOT_GHREPOS:
+      return Object.assign({}, state, {
+        error: null,
+        repos: [],
       });
     default:
       return state;
