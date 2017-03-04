@@ -1,19 +1,20 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 
-// import { ghTrendSearch } from '../lib';
 import { fetchHotGhRepos, resetHotGhRepos } from '../actions';
 import ReposTable from './ReposTable';
 
 class Github extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchTerm: '' };
+    this.state = { searchTerm: '' , repoCreatedDate: null };
 
+    // todo: redux flow
     this.onSearch = this.onSearch.bind(this);
-    this.showError = this.showError.bind(this);
+    this.dateChange = this.dateChange.bind(this);
   }
 
   onSearch({ currentTarget }) {
@@ -23,7 +24,9 @@ class Github extends React.Component {
     }  
   }
 
-  showError(s) { this.setState({ error: s }); }
+  dateChange(event, date) {
+    this.setState({ repoCreatedDate: date });
+  }
 
   render() {
     const { repos, clickSearch, error } = this.props;
@@ -36,7 +39,14 @@ class Github extends React.Component {
           <TextField type="text" floatingLabelText="Language" onChange={this.onSearch} />
         </div>
         <div>
-          <RaisedButton onClick={clickSearch.bind(null, this.state.searchTerm)}>Search</RaisedButton>
+          <DatePicker 
+            hintText="Repos created from date" 
+            value={this.state.repoCreatedDate}
+            onChange={this.dateChange}
+          />
+        </div>
+        <div>
+          <RaisedButton onClick={clickSearch.bind(null, this.state)}>Search</RaisedButton>
         </div>
         { error ? <div className="error">{ error }</div> : null }
         <ReposTable repos={repos} />
@@ -54,8 +64,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clickSearch: (language) => {
-      dispatch(fetchHotGhRepos(language));
+    clickSearch: ({searchTerm, repoCreatedDate}) => {
+      dispatch(fetchHotGhRepos({
+        created: repoCreatedDate,
+        language: searchTerm,
+      }));
     },
     resetRepos: () => {
       dispatch(resetHotGhRepos());

@@ -5,10 +5,10 @@ export const RECEIVE_HOT_GHREPOS = 'RECEIVE_HOT_GHREPOS';
 export const ERROR_RECEIVE_HOT_GHREPOS = 'ERROR_RECEIVE_HOT_GHREPOS';
 export const RESET_HOT_GHREPOS = 'RESET_HOT_GHREPOS';
 
-function requestHotGhRepos(language) {
+function requestHotGhRepos(options) {
   return {
     type: REQUEST_HOT_GHREPOS,
-    language,
+    options,
   };
 }
 
@@ -32,11 +32,11 @@ export function resetHotGhRepos(repos) {
   };
 }
 
-export function fetchHotGhRepos(language) {
+export function fetchHotGhRepos(options) {
   return function fetchReposThunk(dispatch) {
-    dispatch(requestHotGhRepos(language));
+    dispatch(requestHotGhRepos(options));
 
-    ghTrendSearch(language).fork(
+    ghTrendSearch(options).fork(
       err => dispatch(receiveErrorHotGhRepos(err)),
       repos => dispatch(receiveHotGhRepos(repos))
     );
