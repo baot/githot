@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { fetchHotGhRepos, resetHotGhRepos } from '../actions';
 import ReposTable from './ReposTable';
 
-class Github extends React.Component {
+class GithubRepo extends React.Component {
   constructor(props) {
     super(props);
     this.state = { searchTerm: '' , repoCreatedDate: null };
@@ -76,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Github);
+export default connect(mapStateToProps, mapDispatchToProps)(GithubRepo);

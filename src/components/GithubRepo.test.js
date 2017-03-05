@@ -7,13 +7,13 @@ import { mount } from 'enzyme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Github from './Github';
+import GithubRepo from './GithubRepo';
 import { CfakeRepos } from '../../test/testData';
 
 describe('Repos Table test error', () => {
   it('should has <TextField />', () => {
     injectTapEventPlugin();
-    const wrapper = mount(<Github />, {
+    const wrapper = mount(<GithubRepo />, {
       context: {
         muiTheme: getMuiTheme(),
       },

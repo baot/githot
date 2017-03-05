@@ -1,23 +1,32 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import { Link } from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
 
-import Github from './Github';
 import '../styles/index.scss';
 
-const muiTheme = getMuiTheme({});
+const App = (props) => {
+  const styles = {
+     appBar: {
+        flexWrap: 'wrap'
+      },
+      tabs: {
+        width: '100%'
+      }
+  }
 
-const App = () => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div>
-      <AppBar
-        title="Githot"
-        showMenuIconButton={false}
-      />
-      <Github />
-    </div>
-  </MuiThemeProvider>
+  return (
+  <div>
+    <AppBar
+      title="Githot"
+      showMenuIconButton={false}
+      styles={styles.appBar}
+    >
+    <FlatButton label="Repo" containerElement={<Link to="/repo" />}/>
+    </AppBar>
+    {props.children}
+  </div>
 );
-
+}
 export default App;
